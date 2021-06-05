@@ -1,0 +1,13 @@
+Terms of Service (TOS):
+
+// Place your Terms of Service here.
+
+Privacy Policy (PP):
+
+This website collects the information of its visitors; the information it collects is:
+
+- Internet Protocol Address.
+- Cookie Storage and Retrieval.
+- Operating System and Browser Type.
+- Visitor location based on Internet Protocol Address.
+- Webpage and Time Viewed.
