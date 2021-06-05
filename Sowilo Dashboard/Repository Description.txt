@@ -31,4 +31,5 @@
  _\ \/ _ \ |/|/ / / / _ \  / // / _ `(_-</ _ \/ _ \/ _ \/ _ `/ __/ _  /
 /___/\___/__,__/_/_/\___/ /____/\_,_/___/_//_/_.__/\___/\_,_/_/  \_,_/
 
-Sowilo Dashboard, an Advanced Dashboard Forked From XBOX Media Center ( Now Kodi Media Center ) For Use With Flashing On Original XBOX Gaming Consoles.
+* Sowilo Dashboard - Named From The Frisian-Runic Word For Sun-Energy.
+// Sowilo Dashboard, an Advanced Dashboard Forked From XBOX Media Center ( Now Kodi Media Center ) For Use With Flashing On Original XBOX Gaming Consoles.
