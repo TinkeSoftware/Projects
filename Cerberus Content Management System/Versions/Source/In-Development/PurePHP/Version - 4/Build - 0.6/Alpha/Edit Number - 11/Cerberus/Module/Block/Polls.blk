@@ -1,0 +1,174 @@
+<?php
+/*
+ ===========================================================================================
+ + Cerberus Content Management System.
+ + ---
+ + - Author : Gary Christopher Johnson
+ + - E-Mail : TinkeSoftware@Protonmail.com // GCJohnsonChevalier@Protonmail.com
+ + - Company: Tinke Software
+ + - Notes  : Please view this file in Notepad or similar for proper indentation display
+ + ---
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ + ---
+ + - File Location: root->Module->Block->Polls.blk
+ + - File Version:  0.4 - Wednesday, June, 19, 2019
+ + ---
+ +%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ +%%%()()%%()()()%%()()()%%()()()%%()()()%%()()()%%()%%()%%%%%%()()()%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()()()%%()()()%%()()()%%()()()%%()()()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%/-\%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%|4|%  ~ Wyn ~
+ +%%%()()%%()()()%%()%%()%%()()()%%()()()%%()%%()%%()()()%%()()()%%%%%%%%%%%%\-/% Build 0.6
+ ===========================================================================================
+*/
+
+/*
+ ===========================
+ +
+ +
+ + Polls Block
+ +
+ +
+ ===========================
+*/
+
+/*
+ ===========================
+ + Retrieve Latest Poll
+ ===========================
+*/
+
+$_Block_Polls_DB_Query_SELECT_POLLS			= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_PREFIX}_polls ORDER BY id DESC LIMIT 1");
+$_Block_Polls_GET_POLL_ID				= $_GET['_POLL_ID'];
+
+/*
+ ===========================
+ + If No Poll Entries Exist
+ ===========================
+*/
+
+if ($DB->num_rows($_Block_Polls_DB_Query_SELECT_POLLS) <= 0) {
+											echo ("No Poll(s).");
+} else {
+
+/*
+ ===========================
+ + List Poll Entries
+ ===========================
+*/
+
+while ($_Block_Polls_DB_Query_SELECT_POLLS_Fetch_Array = $DB->fetch_array($_Block_Polls_DB_Query_SELECT_POLLS)) {
+
+$_Block_Polls_LIST_POLL_ID				= $_Block_Polls_DB_Query_SELECT_POLLS_Fetch_Array['id'];
+$_Block_Polls_LIST_POLL_REPLY_1				= $_Block_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_reply_1'];
+$_Block_Polls_LIST_POLL_REPLY_2				= $_Block_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_reply_2'];
+$_Block_Polls_LIST_POLL_REPLY_3				= $_Block_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_reply_3'];
+$_Block_Polls_LIST_POLL_REPLY_4				= $_Block_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_reply_4'];
+$_Block_Polls_LIST_POLL_REPLY_5				= $_Block_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_reply_5'];
+$_Block_Polls_LIST_POLL_QUESTION			= $_Block_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_question'];
+
+/*
+ ===========================
+ + Convert Poll Data
+ ===========================
+*/
+
+if ($_Block_Polls_LIST_POLL_REPLY_1 == ".") {
+
+$_INPUT_TYPE_1		= "hidden";
+
+} else {
+
+$_INPUT_TYPE_1		= "radio";
+
+} // [ + ] IF_INPUT_NA
+
+if ($_Block_Polls_LIST_POLL_REPLY_2 == ".") {
+
+$_INPUT_TYPE_2		= "hidden";
+
+} else {
+
+$_INPUT_TYPE_2		= "radio";
+
+} // [ + ] IF_INPUT_NA
+
+if ($_Block_Polls_LIST_POLL_REPLY_3 == ".") {
+
+$_INPUT_TYPE_3		= "hidden";
+
+} else {
+
+$_INPUT_TYPE_3		= "radio";
+
+} // [ + ] IF_INPUT_NA
+
+if ($_Block_Polls_LIST_POLL_REPLY_4 == ".") {
+
+$_INPUT_TYPE_4		= "hidden";
+
+} else {
+
+$_INPUT_TYPE_4		= "radio";
+
+} // [ + ] IF_INPUT_NA
+
+if ($_Block_Polls_LIST_POLL_REPLY_5 == ".") {
+
+$_INPUT_TYPE_5		= "hidden";
+
+} else {
+
+$_INPUT_TYPE_5		= "radio";
+
+} // [ = ] IF_INPUT_NA
+
+/*
+ ===========================
+ +
+ + List Latest Poll
+ +
+ ===========================
+*/
+
+echo ("
+											<FORM ACTION=\"?$_INTERNAL_USER_MODULE&#61;Polls&amp;QueryPollID&#61;$_Block_Polls_LIST_POLL_ID\" METHOD=\"post\">
+												<CENTER><B>$_Block_Polls_LIST_POLL_QUESTION</B></CENTER><HR>
+													<INPUT TYPE=\"hidden\" NAME=\"poll_id\" VALUE=\"$_Block_Polls_GET_POLL_ID\">
+													<INPUT TYPE=\"$_INPUT_TYPE_1\" NAME=\"poll_option\" VALUE=\"poll_1\">$_Block_Polls_LIST_POLL_REPLY_1<BR>
+													<INPUT TYPE=\"$_INPUT_TYPE_2\" NAME=\"poll_option\" VALUE=\"poll_2\">$_Block_Polls_LIST_POLL_REPLY_2<BR>
+													<INPUT TYPE=\"$_INPUT_TYPE_3\" NAME=\"poll_option\" VALUE=\"poll_3\">$_Block_Polls_LIST_POLL_REPLY_3<BR>
+													<INPUT TYPE=\"$_INPUT_TYPE_4\" NAME=\"poll_option\" VALUE=\"poll_4\">$_Block_Polls_LIST_POLL_REPLY_4<BR>
+													<INPUT TYPE=\"$_INPUT_TYPE_5\" NAME=\"poll_option\" VALUE=\"poll_5\">$_Block_Polls_LIST_POLL_REPLY_5<HR>
+													<INPUT TYPE=\"submit\" VALUE=\"Vote\">
+											</FORM>
+											<BR>
+											<CENTER>[ <A HREF=\"?$_INTERNAL_USER_MODULE&#61;Polls&amp;PollID&#61;$_Block_Polls_LIST_POLL_ID\" TITLE=\"View Results For Poll :: $_Block_Polls_LIST_POLL_QUESTION\">Results</A> ]</CENTER>
+");
+
+} // [ + ] WHILE_POLLS
+
+} // [ + ] IF_NUMBER_OF_ROWS
+
+/*
+ ===========================
+ + Kill DB Query
+ ===========================
+*/
+
+$DB->free($_Block_Polls_DB_Query_SELECT_POLLS);
+?>
