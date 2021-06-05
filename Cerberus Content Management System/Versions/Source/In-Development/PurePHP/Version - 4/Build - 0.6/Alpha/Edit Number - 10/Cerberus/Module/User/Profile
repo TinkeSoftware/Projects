@@ -1,0 +1,315 @@
+<?php
+/*
+ ===========================================================================================
+ + Cerberus Content Management System.
+ + ---
+ + - Author : Gary Christopher Johnson
+ + - E-Mail : TinkeSoftware@Protonmail.com // GCJohnsonChevalier@Protonmail.com
+ + - Company: Tinke Software
+ + - Notes  : Please view this file in Notepad or similar for proper indentation display
+ + ---
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ + ---
+ + - File Location: root->Module->User->Profile
+ + - File Version:  0.4 - Sunday, March, 24, 2019
+ + ---
+ +%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ +%%%()()%%()()()%%()()()%%()()()%%()()()%%()()()%%()%%()%%%%%%()()()%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()()()%%()()()%%()()()%%()()()%%()()()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%/-\%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%|4|%
+ +%%%()()%%()()()%%()%%()%%()()()%%()()()%%()%%()%%()()()%%()()()%%%%%%%%%%%%\-/% Build 0.6
+ ===========================================================================================
+*/
+
+/*
+ ===========================
+ +
+ +
+ + Profile
+ +
+ +
+ ===========================
+*/
+
+/*
+ ===========================
+ +
+ + List Member Entries
+ +
+ ===========================
+*/
+
+$_Module_Profile_DB_Query_SELECT_MEMBERS 				= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_PREFIX}_members");
+
+while ($_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array = $DB->fetch_array($_Module_Profile_DB_Query_SELECT_MEMBERS)) {
+
+$_Module_Profile_LIST_MEMBER_ID							= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['id'];
+$_Module_Profile_LIST_MEMBER_AIM						= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_aim'];
+$_Module_Profile_LIST_MEMBER_AVATAR						= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_avatar'];
+$_Module_Profile_LIST_MEMBER_CITY						= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_city'];
+$_Module_Profile_LIST_MEMBER_EMAIL_ADDRESS				= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_email_address'];
+$_Module_Profile_LIST_MEMBER_EXPERIENCE_AMOUNT			= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_experience_amount'];
+$_Module_Profile_LIST_MEMBER_FIRST_NAME					= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_first_name'];
+$_Module_Profile_LIST_MEMBER_HOMEPAGE					= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_homepage'];
+$_Module_Profile_LIST_MEMBER_JOIN_DATE					= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_join_date'];
+$_Module_Profile_LIST_MEMBER_LAST_NAME					= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_last_name'];
+$_Module_Profile_LIST_MEMBER_LAST_POST					= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_last_post'];
+$_Module_Profile_LIST_MEMBER_MOOD						= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_mood'];
+$_Module_Profile_LIST_MEMBER_MSN						= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_msn'];
+$_Module_Profile_LIST_MEMBER_MUSIC						= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_music'];
+$_Module_Profile_LIST_MEMBER_USERNAME					= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_username'];
+$_Module_Profile_LIST_MEMBER_NUMBER_OF_POSTS			= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_number_of_posts'];
+$_Module_Profile_LIST_MEMBER_PICTURE					= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_picture'];
+$_Module_Profile_LIST_MEMBER_PROFILE_DATA				= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_profile_data'];
+$_Module_Profile_LIST_MEMBER_RANK						= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_rank'];
+$_Module_Profile_LIST_MEMBER_SIGNATURE					= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_signature'];
+$_Module_Profile_LIST_MEMBER_THEME						= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_theme'];
+$_Module_Profile_LIST_MEMBER_YIM						= $_Module_Profile_DB_Query_SELECT_MEMBERS_Fetch_Array['member_yim'];
+
+/*
+ ===========================
+ + If Null Member Picture, Replace
+ ===========================
+*/
+
+if ($_Module_Profile_LIST_MEMBER_PICTURE == "") {
+
+	$_Module_Profile_LIST_MEMBER_PICTURE 				= "../../Theme/$_GLOBAL_THEME_DIRECTORY/Image/Icon/No_Image.$_GLOBAL_IMAGE_EXTENSION";
+
+} // [ + ] IF_NULL_IMAGE
+
+if (!file_exists("Member/$_Module_Profile_LIST_MEMBER_USERNAME/$_Module_Profile_LIST_MEMBER_PICTURE")) {
+
+	$_Module_Profile_LIST_MEMBER_PICTURE 				= "../../Theme/$_GLOBAL_THEME_DIRECTORY/Image/Icon/No_Image.$_GLOBAL_IMAGE_EXTENSION";
+
+} // [ + ] IF_MISSING_IMAGE
+
+/*
+ ===========================
+ +
+ + List Selected Member Name
+ +
+ ===========================
+*/
+
+if ($_GET["Name"] == "$_Module_Profile_LIST_MEMBER_USERNAME") {
+
+echo ("
+											<CENTER>[&nbsp;<A HREF=\"?$_INTERNAL_USER_MODULE&#61;Profile&amp;Name&#61;$_Module_Profile_LIST_MEMBER_USERNAME&amp;Display&#61;Statistics\" TITLE=\"View More Information :: $_Module_Profile_LIST_MEMBER_FIRST_NAME $_Module_Profile_LIST_MEMBER_LAST_NAME\">$_Module_Profile_LIST_MEMBER_FIRST_NAME $_Module_Profile_LIST_MEMBER_LAST_NAME</A>&nbsp;]</CENTER>
+												<HR>
+													<A HREF=\"Member/$_Module_Profile_LIST_MEMBER_USERNAME/$_Module_Profile_LIST_MEMBER_PICTURE\" TITLE=\"View Image\"><IMG SRC=\"Member/$_Module_Profile_LIST_MEMBER_USERNAME/$_Module_Profile_LIST_MEMBER_PICTURE\" TITLE=\"$_Module_Profile_LIST_MEMBER_USERNAME :: $_Module_Profile_LIST_MEMBER_PICTURE\" ALT=\"$_Module_Profile_LIST_MEMBER_USERNAME :: $_Module_Profile_LIST_MEMBER_PICTURE\" WIDTH=\"120\" HEIGHT=\"120\"></A><BR><BR>
+													$_Module_Profile_LIST_MEMBER_PROFILE_DATA
+												<HR>
+													Signature:<BR>
+													$_Module_Profile_LIST_MEMBER_SIGNATURE
+												<HR>
+");
+
+/*
+ ===========================
+ +
+ + List Member Statistics
+ +
+ ===========================
+*/
+
+if ($_GET["Display"] == "Statistics") {
+
+echo ("
+											<CENTER><B>$_Module_Profile_LIST_MEMBER_FIRST_NAME $_Module_Profile_LIST_MEMBER_LAST_NAME :: More Information</B></CENTER>
+											<HR>
+												<BIG><B>&middot;</B></BIG>&nbsp;Joined: $_Module_Profile_LIST_MEMBER_JOIN_DATE<BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;Location: $_Module_Profile_LIST_MEMBER_CITY<BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;Experience: $_Module_Profile_LIST_MEMBER_EXPERIENCE_AMOUNT<BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;Rank: $_Module_Profile_LIST_MEMBER_RANK<BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;<A HREF=\"$_Module_Profile_LIST_MEMBER_LAST_POST\" TITLE=\"Last Page View\">Last Page View</A><BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;Current Mood: $_Module_Profile_LIST_MEMBER_MOOD<BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;Currently Listening To: $_Module_Profile_LIST_MEMBER_MUSIC<BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;Number of Posts: $_Module_Profile_LIST_MEMBER_NUMBER_OF_POSTS<BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;Favorite Theme: $_Module_Profile_LIST_MEMBER_THEME<BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;Current Avatar: <A HREF=\"Theme/$_GLOBAL_THEME_DIRECTORY/Image/Icon_Avatar/$_Module_Profile_LIST_MEMBER_AVATAR\" TITLE=\"View Image\">$_Module_Profile_LIST_MEMBER_AVATAR</A><BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;<A HREF=\"?$_INTERNAL_USER_MODULE&#61;E-Mail&amp;E-MailID&#61;$_Module_Profile_LIST_MEMBER_ID\" TITLE=\"E-Mail\">E-Mail</A><BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;<A HREF=\"$_Module_Profile_LIST_MEMBER_HOMEPAGE\" TITLE=\"Homepage\">Homepage</A><BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;<A HREF=\"Member/$_Module_Profile_LIST_MEMBER_USERNAME/\" TITLE=\"Webspace\">View Webspace</A><BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;MSN: $_Module_Profile_LIST_MEMBER_MSN<BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;<A HREF=\"http://edit.yahoo.com/config/send_webmesg?.target=$_Module_Profile_LIST_MEMBER_YIM&amp;.src=pg\" TITLE=\"Instant Message\">YIM</A><BR>
+												<BIG><B>&middot;</B></BIG>&nbsp;<A HREF=\"aim:goim?screenname=$_Module_Profile_LIST_MEMBER_AIM&amp;message=Hello!\" TITLE=\"Instant Message\">AIM</A><BR>
+												<FORM ACTION=\"?$_INTERNAL_USER_MODULE&#61;Friend&amp;Add&#61;Yes\" METHOD=\"post\">
+													<INPUT TYPE=\"hidden\" NAME=\"save_friend\" VALUE=\"$_Module_Profile_LIST_MEMBER_USERNAME\"><INPUT TYPE=\"submit\" VALUE=\"Add To Friends List\">
+												</FORM>
+											<HR>
+											[ <A HREF=\"?$_INTERNAL_USER_MODULE&#61;Profile&amp;Name&#61;$_Module_Profile_LIST_MEMBER_USERNAME\" TITLE=\"Close Statistics\">Close</A> ]<BR><BR>
+");
+
+} // [ + ] IF_Display_Statistics
+
+/*
+ ===========================
+ +
+ + List Profile Comments
+ +
+ ===========================
+*/
+
+$_Module_Profile_DB_Query_SELECT_COMMENTS				= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_PREFIX}_comments WHERE comment_author='$_Module_Profile_LIST_MEMBER_USERNAME' AND comment_application_name='PROFILE' ORDER BY id DESC LIMIT 25");
+
+echo ("
+												<CENTER>&nbsp;</CENTER>
+												<CENTER><B>[ <A HREF=\"?$_INTERNAL_USER_MODULE&#61;Profile&amp;Name&#61;$_Module_Profile_LIST_MEMBER_USERNAME&amp;Display&#61;CommentField\" TITLE=\"Comment :: $_Module_Profile_LIST_MEMBER_USERNAME\">Post Comment</A> ]</B></CENTER>
+											<HR>
+												<CENTER>&nbsp;</CENTER>
+");
+
+if ($DB->num_rows($_Module_Profile_DB_Query_SELECT_COMMENTS) <= 0) {
+
+											echo ($_Message_Profile_NO_COMMENTS);
+
+} // [ + ] IF_NUMBER_OF_ROWS
+
+/*
+ ===========================
+ + List Comment Entries
+ ===========================
+*/
+
+while ($_Module_Profile_DB_Query_SELECT_COMMENTS_Fetch_Array = $DB->fetch_array($_Module_Profile_DB_Query_SELECT_COMMENTS)) {
+
+$_Module_Profile_LIST_COMMENT_ID						= $_Module_Profile_DB_Query_SELECT_COMMENTS_Fetch_Array['id'];
+$_Module_Profile_LIST_COMMENT_AUTHOR					= $_Module_Profile_DB_Query_SELECT_COMMENTS_Fetch_Array['comment_author'];
+$_Module_Profile_LIST_COMMENT_DATA						= $_Module_Profile_DB_Query_SELECT_COMMENTS_Fetch_Array['comment_data'];
+$_Module_Profile_LIST_COMMENT_APPLICATION_ID			= $_Module_Profile_DB_Query_SELECT_COMMENTS_Fetch_Array['comment_application_id'];
+$_Module_Profile_LIST_COMMENT_APPLICATION_NAME			= $_Module_Profile_DB_Query_SELECT_COMMENTS_Fetch_Array['comment_application_name'];
+$_Module_Profile_LIST_COMMENT_TIME						= $_Module_Profile_DB_Query_SELECT_COMMENTS_Fetch_Array['comment_time'];
+
+/*
+ ===========================
+ + List Comment Authorship
+ ===========================
+*/
+
+$_Module_Profile_DB_Query_SELECT_MEMBERS_FOR_COMMENT 	= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_PREFIX}_members WHERE member_username='$_Module_Profile_LIST_COMMENT_AUTHOR'");
+
+while ($_Module_Profile_DB_Query_SELECT_MEMBERS_FOR_COMMENT_Fetch_Array = $DB->fetch_array($_Module_Profile_DB_Query_SELECT_MEMBERS_FOR_COMMENT)) {
+
+$_Module_Profile_LIST_COMMENT_AUTHOR_AVATAR				= $_Module_Profile_DB_Query_SELECT_MEMBERS_FOR_COMMENT_Fetch_Array['member_avatar'];
+$_Module_Profile_LIST_COMMENT_AUTHOR_CITY				= $_Module_Profile_DB_Query_SELECT_MEMBERS_FOR_COMMENT_Fetch_Array['member_city'];
+$_Module_Profile_LIST_COMMENT_AUTHOR_EXPERIENCE_AMOUNT	= $_Module_Profile_DB_Query_SELECT_MEMBERS_FOR_COMMENT_Fetch_Array['member_experience_amount'];
+$_Module_Profile_LIST_COMMENT_AUTHOR_JOIN_DATE			= $_Module_Profile_DB_Query_SELECT_MEMBERS_FOR_COMMENT_Fetch_Array['member_join_date'];
+$_Module_Profile_LIST_COMMENT_AUTHOR_SIGNATURE			= $_Module_Profile_DB_Query_SELECT_MEMBERS_FOR_COMMENT_Fetch_Array['member_signature'];
+
+/*
+ ===========================
+ + If Null Member Signature
+ ===========================
+*/
+
+if ($_Module_Profile_LIST_COMMENT_AUTHOR_SIGNATURE == "") {
+
+$_Module_Profile_LIST_COMMENT_AUTHOR_SIGNATURE 			= "None";
+
+}// [ + ] IF_NULL_SIGNATURE
+
+/*
+ ===========================
+ + If Null Member City
+ ===========================
+*/
+
+if ($_Module_Profile_LIST_COMMENT_AUTHOR_CITY == "") {
+
+$_Module_Profile_LIST_COMMENT_AUTHOR_CITY 				= "Unknown";
+
+} // [ + ] IF_NULL_CITY
+
+/*
+ ===========================
+ + List Comments
+ ===========================
+*/
+
+echo ("
+											<CENTER>
+												<TABLE BORDER=\"1\" WIDTH=\"100%\">
+													<TR>
+														<TD VALIGN=\"top\">
+															<IMG SRC=\"Theme/$_GLOBAL_THEME_DIRECTORY/Image/Icon_Avatar/$_Module_Profile_LIST_COMMENT_AUTHOR_AVATAR\" TITLE=\"Avatar\" ALT=\"Avatar\"><HR>
+															<B>Member</B>: <A HREF=\"?$_INTERNAL_USER_MODULE&#61;Profile&amp;Name&#61;$_Module_Profile_LIST_COMMENT_AUTHOR\" TITLE=\"Profile: $_Module_Profile_LIST_COMMENT_AUTHOR\">$_Module_Profile_LIST_COMMENT_AUTHOR</A><BR><B>Location</B>: $_Module_Profile_LIST_COMMENT_AUTHOR_CITY<BR><B>Experience</B>: $_Module_Profile_LIST_COMMENT_AUTHOR_EXPERIENCE_AMOUNT<HR>
+															<A HREF=\"?$_INTERNAL_USER_MODULE&#61;Comment&amp;ModifyCommentID&#61;$_Module_Profile_LIST_COMMENT_ID\" TITLE=\"Modify\"><IMG SRC=\"Theme/$_GLOBAL_THEME_DIRECTORY/Image/Icon/Icon_Edit.$_GLOBAL_IMAGE_EXTENSION\" ALT=\"Modify\"></A>
+															<A HREF=\"?$_INTERNAL_USER_MODULE&#61;Comment&amp;DeleteCommentID&#61;$_Module_Profile_LIST_COMMENT_ID\" TITLE=\"Delete\"><IMG SRC=\"Theme/$_GLOBAL_THEME_DIRECTORY/Image/Icon/Icon_Delete.$_GLOBAL_IMAGE_EXTENSION\" ALT=\"Delete\"></A>
+														</TD>
+
+														<TD VALIGN=\"top\" WIDTH=\"100%\"><B>Comment</B>: <I><B>$_Module_Profile_LIST_COMMENT_DATA</B></I><HR><B>Signature</B>:<BR>$_Module_Profile_LIST_COMMENT_AUTHOR_SIGNATURE<HR><B>Posted</B>: $_Module_Profile_LIST_COMMENT_TIME</TD>
+													</TR>
+												</TABLE>
+											</CENTER><BR>
+");
+
+} // [ + ] WHILE_AUTHOR
+
+/*
+ ===========================
+ + Kill DB Query
+ ===========================
+*/
+
+$DB->free($_Module_Profile_DB_Query_SELECT_MEMBERS_FOR_COMMENT);
+
+} // [ + ] WHILE_COMMENTS
+
+/*
+ ===========================
+ + Kill DB Query
+ ===========================
+*/
+
+$DB->free($_Module_Profile_DB_Query_SELECT_COMMENTS);
+
+/*
+ ===========================
+ + Kill DB Query
+ ===========================
+*/
+
+$DB->free($_Module_Profile_DB_Query_SELECT_MEMBERS);
+
+/*
+ ===========================
+ +
+ + Comment Form
+ +
+ ===========================
+*/
+
+if ($_GET["Display"] == "CommentField") {
+
+echo ("
+											<B>Comment:</B><BR>
+											<FORM ACTION=\"?$_INTERNAL_USER_MODULE&#61;Comment\" METHOD=\"post\">
+												<INPUT TYPE=\"hidden\" NAME=\"post_application_name\" VALUE=\"PROFILE\">
+												<INPUT TYPE=\"hidden\" NAME=\"post_application_id\" VALUE=\"$_Module_Profile_LIST_MEMBER_USERNAME\">
+												<TEXTAREA ROWS=\"15\" COLS=\"75\" NAME=\"post_application_data\"></TEXTAREA><BR>
+												<INPUT TYPE=\"submit\" VALUE=\"Comment\">
+											</FORM>
+");
+
+} // [ + ] IF_Display_CommentField
+
+} // [ + ] IF_Display_Selected_Member_ID
+
+} // [ + ] WHILE_ARRAY
+?>

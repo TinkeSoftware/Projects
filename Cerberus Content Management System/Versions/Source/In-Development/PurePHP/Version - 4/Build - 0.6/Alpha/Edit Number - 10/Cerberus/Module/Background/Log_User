@@ -1,0 +1,173 @@
+<?php
+/*
+ ===========================================================================================
+ + Cerberus Content Management System.
+ + ---
+ + - Author : Gary Christopher Johnson
+ + - E-Mail : TinkeSoftware@Protonmail.com // GCJohnsonChevalier@Protonmail.com
+ + - Company: Tinke Software
+ + - Notes  : Please view this file in Notepad or similar for proper indentation display
+ + ---
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ + ---
+ + - File Location: root->Module->Background->Log_User
+ + - File Version:  0.4 - Sunday, March, 24, 2019
+ + ---
+ +%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ +%%%()()%%()()()%%()()()%%()()()%%()()()%%()()()%%()%%()%%%%%%()()()%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()()()%%()()()%%()()()%%()()()%%()()()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%/-\%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%|4|%
+ +%%%()()%%()()()%%()%%()%%()()()%%()()()%%()%%()%%()()()%%()()()%%%%%%%%%%%%\-/% Build 0.6
+ ===========================================================================================
+*/
+
+/*
+ ===========================
+ +
+ +
+ + Log User
+ +
+ +
+ ===========================
+*/
+
+/*
+ ===========================
+ +
+ + User Details
+ +
+ ===========================
+*/
+
+/*
+ ===========================
+ + Log Variables
+ ===========================
+*/
+
+$_Log_User_GET_IP							= $_SERVER['REMOTE_ADDR'];
+$_Log_User_GET_REFERRER						= $_SERVER['HTTP_REFERER'];
+$_Log_User_GET_BROWSER						= $_SERVER['HTTP_USER_AGENT'];
+$_Log_User_GET_LOG_USER						= $_GLOBAL_USERNAME;
+
+/*
+ ===========================
+ + Specify Log File
+ ===========================
+*/
+
+$_Log_User_OPEN_FILE_NAME					= fopen("System/Log/User/Log_User.html", "a");
+
+/*
+ ===========================
+ + Replace Characters
+ ===========================
+*/
+
+$_Log_User_REPLACE_CHARACTERS[0]			= "<";
+$_Log_User_REPLACE_CHARACTERS[1]			= ">";
+$_Log_User_REPLACE_CHARACTERS[2]			= "'";
+$_Log_User_REPLACE_CHARACTERS[3]			= "\"";
+
+$_Log_User_REPLACE_CHARACTERS_WITH[0]		= "Z";
+$_Log_User_REPLACE_CHARACTERS_WITH[1] 		= "Z";
+$_Log_User_REPLACE_CHARACTERS_WITH[2] 		= "Z";
+$_Log_User_REPLACE_CHARACTERS_WITH[3] 		= "Z";
+
+$_Log_User_GET_REFERRER						= str_replace($_Log_User_REPLACE_CHARACTERS, $_Log_User_REPLACE_CHARACTERS_WITH, $_Log_User_GET_REFERRER);
+$_Log_User_GET_BROWSER						= str_replace($_Log_User_REPLACE_CHARACTERS, $_Log_User_REPLACE_CHARACTERS_WITH, $_Log_User_GET_BROWSER);
+$_Log_User_GET_LOG_USER						= str_replace($_Log_User_REPLACE_CHARACTERS, $_Log_User_REPLACE_CHARACTERS_WITH, $_Log_User_GET_LOG_USER);
+
+if (strlen($_Log_User_GET_IP) > "12") {
+
+	$_Log_User_GET_IP = "Unknown";
+
+} // [ + ] IF_STRING_LENGTH
+
+if (strlen($_Log_User_GET_REFERRER) > "250") {
+
+	$_Log_User_GET_REFERRER = "Unknown";
+
+} // [ + ] IF_STRING_LENGTH
+
+if (strlen($_Log_User_GET_BROWSER) > "250") {
+
+	$_Log_User_GET_BROWSER = "Unknown";
+
+} // [ + ] IF_STRING_LENGTH
+
+if (strlen($_Log_User_GET_LOG_USER) > "20") {
+
+	$_Log_User_GET_LOG_USER = "Unknown";
+
+} // [ + ] IF_STRING_LENGTH
+
+/*
+ ===========================
+ + Write Data To File
+ ===========================
+*/
+
+if ($_Log_User_GET_LOG_USER != null) {
+
+fwrite($_Log_User_OPEN_FILE_NAME, "<CENTER><TABLE WIDTH=\"100%\" CELLPADDING=\"0\" CELLSPACING=\"0\" BORDER=\"1\"><TD WIDTH=\"20%\">Visitor: <A HREF=\"?$_INTERNAL_USER_MODULE&#61;Profile&amp;Name&#61;$_Log_User_GET_LOG_USER\" TITLE=\"$_Log_User_GET_LOG_USER's Profile\">$_Log_User_GET_LOG_USER</A></TD>");
+fwrite($_Log_User_OPEN_FILE_NAME, "<TD WIDTH=\"15%\">Time: <A TITLE=\"$_GLOBAL_DATE\">Hover</A></TD>");
+
+if ($_Log_User_GET_IP != null) {
+
+fwrite($_Log_User_OPEN_FILE_NAME, "<TD WIDTH=\"15%\">IP: $REMOTE_ADDR</TD>");
+
+} // [ + ] IF_GET_IP
+
+if ($_Log_User_GET_REFERRER != null) {
+
+fwrite($_Log_User_OPEN_FILE_NAME, "<TD WIDTH=\"15%\">Referrer: <A HREF=\"$_Log_User_GET_REFERRER\" TARGET=\"_NEW\" TITLE=\"Referrer :: $_Log_User_GET_REFERRER\">View</A></TD>");
+
+} // [ + ] IF_GET_REFERRER
+
+fwrite($_Log_User_OPEN_FILE_NAME, "<TD WIDTH=\"15%\">Browser: <A TITLE=\"$_Log_User_GET_BROWSER\">Hover</A></TD></TR></TABLE></CENTER>");
+
+} else {
+
+fwrite($_Log_User_OPEN_FILE_NAME, "<CENTER><TABLE WIDTH=\"100%\" CELLPADDING=\"0\" CELLSPACING=\"0\" BORDER=\"1\"><TD WIDTH=\"20%\">Visitor: Anonymous</TD>");
+fwrite($_Log_User_OPEN_FILE_NAME, "<TD WIDTH=\"15%\">Time: <A TITLE=\"$_GLOBAL_DATE\">Hover</A></TD>");
+
+if ($_Log_User_GET_IP != null) {
+
+fwrite($_Log_User_OPEN_FILE_NAME, "<TD WIDTH=\"15%\">IP: $REMOTE_ADDR</TD>");
+
+} // [ + ] IF_GET_IP
+
+if ($_Log_User_GET_REFERRER != null) {
+
+fwrite($_Log_User_OPEN_FILE_NAME, "<TD WIDTH=\"15%\">Referrer: <A HREF=\"$_Log_User_GET_REFERRER\" TARGET=\"_NEW\" TITLE=\"Referrer :: $_Log_User_GET_REFERRER\">View</A></TD>");
+
+} // [ + ] IF_GET_REFERRER
+
+fwrite($_Log_User_OPEN_FILE_NAME, "<TD WIDTH=\"15%\">Browser: <A TITLE=\"$_Log_User_GET_BROWSER\">Hover</A></TD></TR></TABLE></CENTER>");
+
+} // [ + ] IF_COOKIE
+
+/*
+ ===========================
+ + Close File
+ ===========================
+*/
+
+fclose($_Log_User_OPEN_FILE_NAME);
+?>

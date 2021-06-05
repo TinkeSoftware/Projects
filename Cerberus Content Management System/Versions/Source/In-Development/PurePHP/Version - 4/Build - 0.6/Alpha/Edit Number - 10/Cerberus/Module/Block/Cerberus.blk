@@ -1,0 +1,60 @@
+<?php
+/*
+ ===========================================================================================
+ + Cerberus Content Management System.
+ + ---
+ + - Author : Gary Christopher Johnson
+ + - E-Mail : TinkeSoftware@Protonmail.com // GCJohnsonChevalier@Protonmail.com
+ + - Company: Tinke Software
+ + - Notes  : Please view this file in Notepad or similar for proper indentation display
+ + ---
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ + ---
+ + - File Location: root->Module->Block->Cerberus.blk
+ + - File Version:  0.4 - Sunday, March, 24, 2019
+ + ---
+ +%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ +%%%()()%%()()()%%()()()%%()()()%%()()()%%()()()%%()%%()%%%%%%()()()%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()()()%%()()()%%()()()%%()()()%%()()()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%/-\%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%|4|%
+ +%%%()()%%()()()%%()%%()%%()()()%%()()()%%()%%()%%()()()%%()()()%%%%%%%%%%%%\-/% Build 0.6
+ ===========================================================================================
+*/
+/*
+ ===========================
+ +
+ +
+ + Cerberus Block
+ +
+ +
+ ===========================
+*/
+
+echo ("
+											<A HREF=\"https://www.SourceForge.net/projects/cerberuscms\" TITLE=\"Cerberus Content Management System :: SourceForge Project Page\"><IMG SRC=\"Module/Block/Cerberus_Badge.png\" ALT=\"Cerberus Content Management System :: SourceForge\"></A><BR><BR>
+											<A HREF=\"https://www.Chromium.org/\" TITLE=\"Chromium Project\"><IMG SRC=\"Module/Block/Chromium_Badge.png\" ALT=\"Chromium Project\"></A><BR><BR>
+											<A HREF=\"https://www.Mozilla.org/firefox/\" TITLE=\"Mozilla FireFox Web Browser\"><IMG SRC=\"Module/Block/FireFox_Badge.png\" ALT=\"Mozilla FireFox Web Browser\"></A><BR><BR>
+											<A HREF=\"https://www.Apache.org\" TITLE=\"Apache Software Foundation\"><IMG SRC=\"Module/Block/Apache.png\" ALT=\"Apache Software Foundation\"></A><BR>
+											<A HREF=\"https://www.MySQL.com\" TITLE=\"MySQL Database Management System\"><IMG SRC=\"Module/Block/MySQL.gif\" ALT=\"MySQL Database Management System\"></A><BR>
+											<A HREF=\"https://www.PHP.net\" TITLE=\"Post Hypertext Preprocessor ( PHP ) Scripting Language\"><IMG SRC=\"Module/Block/PHP.png\" ALT=\"Post Hypertext Preprocessor ( PHP ) Scripting Language\"></A><BR>
+											<A HREF=\"https://tool.motoricerca.info/robots-checker.phtml\" TITLE=\"Robots Validator\"><IMG SRC=\"Module/Block/Robots.png\" ALT=\"Robots Validator\"></A><BR>
+											<A HREF=\"https://jigsaw.w3.org/css-validator/\" TITLE=\"CSS Validator\"><IMG SRC=\"Module/Block/W3C_CSS.png\" ALT=\"CSS Validator\"></A><BR>
+											<A HREF=\"https://validator.w3.org/\" TITLE=\"HTML Validator\"><IMG SRC=\"Module/Block/W3C_HTML.png\" ALT=\"HTML Validator\"></A><BR>
+											<A HREF=\"https://validator.w3.org/feed/\" TITLE=\"RSS Validator\"><IMG SRC=\"Module/Block/W3C_RSS.png\" ALT=\"HTML Validator\"></A>
+");
+?>

@@ -1,0 +1,348 @@
+<?php
+/*
+ ===========================================================================================
+ + Cerberus Content Management System.
+ + ---
+ + - Author : Gary Christopher Johnson
+ + - E-Mail : TinkeSoftware@Protonmail.com // GCJohnsonChevalier@Protonmail.com
+ + - Company: Tinke Software
+ + - Notes  : Please view this file in Notepad or similar for proper indentation display
+ + ---
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ +
+ + ---
+ + - File Location: root->Module->Administration->Polls
+ + - File Version:  0.4 - Sunday, March, 24, 2019
+ + ---
+ +%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ +%%%()()%%()()()%%()()()%%()()()%%()()()%%()()()%%()%%()%%%%%%()()()%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()()()%%()()()%%()()()%%()()()%%()()()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%%%%%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%/-\%
+ +%%()%%%%%()%%%%%%()%%()%%()%%()%%()%%%%%%()%%()%%()%%()%%%%%%()%%%%%%%%%%%%|4|%
+ +%%%()()%%()()()%%()%%()%%()()()%%()()()%%()%%()%%()()()%%()()()%%%%%%%%%%%%\-/% Build 0.6
+ ===========================================================================================
+*/
+
+/*
+ ===========================
+ +
+ +
+ + Install Poll
+ +
+ +
+ ===========================
+*/
+
+/*
+ ===========================
+ +
+ + Install Poll Form Post Variables
+ +
+ ===========================
+*/
+
+/*
+ ===========================
+ + Post Variables
+ ===========================
+*/
+
+$_Module_Polls_POST_INSTALL_QUESTION			= $_POST['module_polls_install_poll_question'];
+$_Module_Polls_POST_INSTALL_REPLY_1			= $_POST['module_polls_install_reply_1'];
+$_Module_Polls_POST_INSTALL_REPLY_2			= $_POST['module_polls_install_reply_2'];
+$_Module_Polls_POST_INSTALL_REPLY_3			= $_POST['module_polls_install_reply_3'];
+$_Module_Polls_POST_INSTALL_REPLY_4			= $_POST['module_polls_install_reply_4'];
+$_Module_Polls_POST_INSTALL_REPLY_5			= $_POST['module_polls_install_reply_5'];
+
+/*
+ ===========================
+ + Character Replace
+ ===========================
+*/
+
+$_Module_Polls_POST_INSTALL_QUESTION			= preg_replace("/'/","&#39;", $_Module_Polls_POST_INSTALL_QUESTION);
+$_Module_Polls_POST_INSTALL_REPLY_1			= preg_replace("/'/","&#39;", $_Module_Polls_POST_INSTALL_REPLY_1);
+$_Module_Polls_POST_INSTALL_REPLY_2			= preg_replace("/'/","&#39;", $_Module_Polls_POST_INSTALL_REPLY_2);
+$_Module_Polls_POST_INSTALL_REPLY_3			= preg_replace("/'/","&#39;", $_Module_Polls_POST_INSTALL_REPLY_3);
+$_Module_Polls_POST_INSTALL_REPLY_4			= preg_replace("/'/","&#39;", $_Module_Polls_POST_INSTALL_REPLY_4);
+$_Module_Polls_POST_INSTALL_REPLY_5			= preg_replace("/'/","&#39;", $_Module_Polls_POST_INSTALL_REPLY_5);
+
+if ((!$_Module_Polls_POST_INSTALL_QUESTION)) {
+
+/*
+ ===========================
+ +
+ + Install Poll Form
+ +
+ ===========================
+*/
+
+echo ("
+													<CENTER><B>Install Poll</B></CENTER><HR>
+														<FORM ACTION=\"?$_INTERNAL_ADMINISTRATOR_MODULE&#61;cPanel&amp;Action&#61;Polls\" METHOD=\"post\">
+															Leave a [ . ] in any unused field.<BR><BR>
+															Poll Question:<BR>
+																<INPUT TYPE=\"text\" NAME=\"module_polls_install_poll_question\" MAXLENGTH=\"250\"><BR>
+															Poll Reply 1:<BR>
+																<INPUT TYPE=\"text\" NAME=\"module_polls_install_reply_1\" VALUE=\".\" MAXLENGTH=\"250\"><BR>
+															Poll Reply 2:<BR>
+																<INPUT TYPE=\"text\" NAME=\"module_polls_install_reply_2\" VALUE=\".\" MAXLENGTH=\"250\"><BR>
+															Poll Reply 3:<BR>
+																<INPUT TYPE=\"text\" NAME=\"module_polls_install_reply_3\" VALUE=\".\" MAXLENGTH=\"250\"><BR>
+															Poll Reply 4:<BR>
+																<INPUT TYPE=\"text\" NAME=\"module_polls_install_reply_4\" VALUE=\".\" MAXLENGTH=\"250\"><BR>
+															Poll Reply 5:<BR>
+																<INPUT TYPE=\"text\" NAME=\"module_polls_install_reply_5\" VALUE=\".\" MAXLENGTH=\"250\"><BR>
+															<INPUT TYPE=\"submit\" VALUE=\"Install\">
+														</FORM><BR><BR>
+");
+
+} else {
+
+/*
+ ===========================
+ +
+ + SQL Query -> Update Poll
+ +
+ ===========================
+*/
+
+$_Module_Polls_DB_Query_INSTALL_POLL			= $DB->query("INSERT INTO {$_ACCESS_DATABASE_PREFIX}_polls(poll_question,poll_reply_1,poll_reply_2,poll_reply_3,poll_reply_4,poll_reply_5,poll_result_1,poll_result_2,poll_result_3,poll_result_4,poll_result_5)VALUES('$_Module_Polls_POST_INSTALL_QUESTION','$_Module_Polls_POST_INSTALL_REPLY_1','$_Module_Polls_POST_INSTALL_REPLY_2','$_Module_Polls_POST_INSTALL_REPLY_3','$_Module_Polls_POST_INSTALL_REPLY_4','$_Module_Polls_POST_INSTALL_REPLY_5','0','0','0','0','0')");
+
+if ($_Module_Polls_DB_Query_INSTALL_POLL) {
+														echo ("<CENTER>Cerberus: I have Installed the Poll: <I>$_Module_Polls_POST_INSTALL_QUESTION</I> successfully.</CENTER>");
+} else {
+														echo ($_Message_ERROR_ACTION_UNIVERSAL);
+} // [ + ] IF_POLL_QUERY
+
+/*
+ ===========================
+ + Kill SQL Query
+ ===========================
+*/
+
+$DB->free($_Module_Polls_DB_Query_INSTALL_POLL);
+
+} // [ + ] IF_NULL
+
+/*
+ ===========================
+ +
+ +
+ + Display Polls
+ +
+ +
+ ===========================
+*/
+
+/*
+ ===========================
+ +
+ + Select All Poll Entries
+ +
+ ===========================
+*/
+
+$_Module_Polls_DB_Query_SELECT_POLLS			= $DB->query("SELECT * FROM {$_ACCESS_DATABASE_PREFIX}_polls");
+
+														echo ("<HR><CENTER><B>Existing Poll(s)</B></CENTER><HR>");
+
+if ($DB->num_rows($_Module_Polls_DB_Query_SELECT_POLLS) <= 0) {
+														echo ("<CENTER>Cerberus: I was not able to Find any Poll(s).</CENTER>");
+} else {
+
+while ($_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array = $DB->fetch_array($_Module_Polls_DB_Query_SELECT_POLLS)) {
+
+/*
+ ===========================
+ +
+ + Display Polls List Variables
+ +
+ ===========================
+*/
+
+$_Module_Polls_LIST_POLL_ID				= $_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array['id'];
+$_Module_Polls_LIST_POLL_REPLY_1			= $_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_reply_1'];
+$_Module_Polls_LIST_POLL_REPLY_2			= $_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_reply_2'];
+$_Module_Polls_LIST_POLL_REPLY_3			= $_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_reply_3'];
+$_Module_Polls_LIST_POLL_REPLY_4			= $_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_reply_4'];
+$_Module_Polls_LIST_POLL_REPLY_5			= $_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_reply_5'];
+$_Module_Polls_LIST_POLL_RESULT_1			= $_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_result_1'];
+$_Module_Polls_LIST_POLL_RESULT_2			= $_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_result_2'];
+$_Module_Polls_LIST_POLL_RESULT_3			= $_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_result_3'];
+$_Module_Polls_LIST_POLL_RESULT_4			= $_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_result_4'];
+$_Module_Polls_LIST_POLL_RESULT_5			= $_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_result_5'];
+$_Module_Polls_LIST_POLL_QUESTION			= $_Module_Polls_DB_Query_SELECT_POLLS_Fetch_Array['poll_question'];
+
+/*
+ ===========================
+ +
+ + Display Polls List
+ +
+ ===========================
+*/
+
+echo ("
+													<CENTER>
+														<TABLE BORDER=\"1\" WIDTH=\"100%\" CELLPADDING=\"0\" CELLSPACING=\"0\">
+															<TR>
+																<TD WIDTH=\"100%\">Poll Name: <B>$_Module_Polls_LIST_POLL_QUESTION</B></TD>
+																<TD><A HREF=\"?$_INTERNAL_ADMINISTRATOR_MODULE&#61;cPanel&amp;Action&#61;Polls&amp;Delete&#61;$_Module_Polls_LIST_POLL_ID\" TITLE=\"Delete Poll :: $_Module_Polls_LIST_POLL_QUESTION\">Delete</A></TD>
+																<TD><A HREF=\"?$_INTERNAL_ADMINISTRATOR_MODULE&#61;cPanel&amp;Action&#61;Polls&amp;Modify&#61;$_Module_Polls_LIST_POLL_ID\" TITLE=\"Modify Poll :: $_Module_Polls_LIST_POLL_QUESTION\">Modify</A></TD>
+															</TR>
+														</TABLE>
+													</CENTER>
+");
+
+/*
+ ===========================
+ +
+ +
+ + Delete Selected Poll ID
+ +
+ +
+ ===========================
+*/
+
+if ($_GET["Delete"] == "$_Module_Polls_LIST_POLL_ID") {
+
+$_Module_Polls_DB_Query_DELETE_POLL			= $DB->query("DELETE FROM {$_ACCESS_DATABASE_PREFIX}_polls WHERE id='$_Module_Polls_LIST_POLL_ID'");
+
+if ($_Module_Polls_DB_Query_DELETE_POLL) {
+													echo ("<BR><HR><CENTER>Cerberus: I have Deleted the Selected Poll Successfully.</CENTER><HR><BR>");
+} else {
+													echo ($_Message_ERROR_ACTION_UNIVERSAL);
+} // [ + ] IF_DELETE_QUERY
+
+/*
+ ===========================
+ + Kill SQL Query
+ ===========================
+*/
+
+$DB->free($_Module_Polls_DB_Query_DELETE_POLL);
+
+} // [ + ] IF_DELETE
+
+/*
+ ===========================
+ +
+ +
+ + Modify Selected Poll ID
+ +
+ +
+ ===========================
+*/
+
+if ($_GET["Modify"] == "$_Module_Polls_LIST_POLL_ID") {
+
+/*
+ ===========================
+ +
+ + Modify Poll Post Variables
+ +
+ ===========================
+*/
+
+/*
+ ===========================
+ + Post Variables
+ ===========================
+*/
+
+$_Module_Polls_POST_UPDATE_POLL_QUESTION		= $_POST['module_polls_update_poll_question'];
+$_Module_Polls_POST_UPDATE_POLL_REPLY_1			= $_POST['module_polls_update_poll_reply_1'];
+$_Module_Polls_POST_UPDATE_POLL_REPLY_2			= $_POST['module_polls_update_poll_reply_2'];
+$_Module_Polls_POST_UPDATE_POLL_REPLY_3			= $_POST['module_polls_update_poll_reply_3'];
+$_Module_Polls_POST_UPDATE_POLL_REPLY_4			= $_POST['module_polls_update_poll_reply_4'];
+$_Module_Polls_POST_UPDATE_POLL_REPLY_5			= $_POST['module_polls_update_poll_reply_5'];
+
+/*
+ ===========================
+ + Character Replace
+ ===========================
+*/
+
+$_Module_Polls_POST_UPDATE_POLL_QUESTION		= preg_replace("/'/","&#39;", $_Module_Polls_POST_UPDATE_POLL_QUESTION);
+$_Module_Polls_POST_UPDATE_POLL_REPLY_1			= preg_replace("/'/","&#39;", $_Module_Polls_POST_UPDATE_POLL_REPLY_1);
+$_Module_Polls_POST_UPDATE_POLL_REPLY_2			= preg_replace("/'/","&#39;", $_Module_Polls_POST_UPDATE_POLL_REPLY_2);
+$_Module_Polls_POST_UPDATE_POLL_REPLY_3			= preg_replace("/'/","&#39;", $_Module_Polls_POST_UPDATE_POLL_REPLY_3);
+$_Module_Polls_POST_UPDATE_POLL_REPLY_4			= preg_replace("/'/","&#39;", $_Module_Polls_POST_UPDATE_POLL_REPLY_4);
+$_Module_Polls_POST_UPDATE_POLL_REPLY_5			= preg_replace("/'/","&#39;", $_Module_Polls_POST_UPDATE_POLL_REPLY_5);
+
+if ((!$_Module_Polls_POST_UPDATE_POLL_QUESTION) || (!$_Module_Polls_POST_UPDATE_POLL_REPLY_1) || (!$_Module_Polls_POST_UPDATE_POLL_REPLY_2) || (!$_Module_Polls_POST_UPDATE_POLL_REPLY_3) || (!$_Module_Polls_POST_UPDATE_POLL_REPLY_4) || (!$_Module_Polls_POST_UPDATE_POLL_REPLY_5)) {
+
+/*
+ ===========================
+ +
+ + Modify Selected Poll Form
+ +
+ ===========================
+*/
+
+echo ("
+													<BR><BR><HR><CENTER><B>Currently Modifying Poll: <I>$_Module_Polls_LIST_POLL_QUESTION</I></B></CENTER><HR>
+														<FORM ACTION=\"?$_INTERNAL_ADMINISTRATOR_MODULE&#61;cPanel&amp;Action&#61;Polls&amp;Modify&#61;$_Module_Polls_LIST_POLL_ID\" METHOD=\"post\">
+															Poll Question:<BR>
+																<INPUT TYPE=\"\" NAME=\"module_polls_update_poll_question\" VALUE=\"$_Module_Polls_LIST_POLL_QUESTION\" MAXLENGTH=\"250\"><BR>
+															Reply 1:<BR>
+																<INPUT TYPE=\"text\" NAME=\"module_polls_update_poll_reply_1\" VALUE=\"$_Module_Polls_LIST_POLL_REPLY_1\" MAXLENGTH=\"250\"><BR>
+															Reply 2:<BR>
+																<INPUT TYPE=\"text\" NAME=\"module_polls_update_poll_reply_2\" VALUE=\"$_Module_Polls_LIST_POLL_REPLY_2\" MAXLENGTH=\"250\"><BR>
+															Reply 3:<BR>
+																<INPUT TYPE=\"text\" NAME=\"module_polls_update_poll_reply_3\" VALUE=\"$_Module_Polls_LIST_POLL_REPLY_3\" MAXLENGTH=\"250\"><BR>
+															Reply 4:<BR>
+																<INPUT TYPE=\"text\" NAME=\"module_polls_update_poll_reply_4\" VALUE=\"$_Module_Polls_LIST_POLL_REPLY_4\" MAXLENGTH=\"250\"><BR>
+															Reply 5:<BR>
+																<INPUT TYPE=\"text\" NAME=\"module_polls_update_poll_reply_5\" VALUE=\"$_Module_Polls_LIST_POLL_REPLY_5\" MAXLENGTH=\"250\"><BR>
+																<INPUT TYPE=\"submit\" VALUE=\"Update\">
+														</FORM><BR><BR>
+");
+
+} else {
+
+$_Module_Polls_DB_Query_UPDATE_POLL			= $DB->query("UPDATE {$_ACCESS_DATABASE_PREFIX}_polls SET poll_question='$_Module_Polls_POST_UPDATE_POLL_QUESTION',poll_reply_1='$_Module_Polls_POST_UPDATE_POLL_REPLY_1',poll_reply_2='$_Module_Polls_POST_UPDATE_POLL_REPLY_2',poll_reply_3='$_Module_Polls_POST_UPDATE_POLL_REPLY_3',poll_reply_4='$_Module_Polls_POST_UPDATE_POLL_REPLY_4',poll_reply_5='$_Module_Polls_POST_UPDATE_POLL_REPLY_5' WHERE id='$_Module_Polls_LIST_POLL_ID'");
+
+if ($_Module_Polls_DB_Query_UPDATE_POLL) {
+													echo ("<BR><HR><CENTER>Cerberus: I have Updated the Poll: <I>$_Module_Polls_POST_UPDATE_POLL_QUESTION</I> Successfully.</CENTER><HR><BR>");
+} else {
+													echo ($_Message_ERROR_ACTION_UNIVERSAL);
+} // [ + ] IF_UPDATE_QUERY
+
+/*
+ ===========================
+ + Kill SQL Query
+ ===========================
+*/
+
+$DB->free($_Module_Polls_DB_Query_UPDATE_POLL);
+
+} // [ + ] IF_NULL
+
+} // [ + ] IF_MODIFY
+
+} // [ + ] WHILE_ARRAY
+
+} // [ + ] IF_NUM_ROWS
+
+/*
+ ===========================
+ + Kill SQL Query
+ ===========================
+*/
+
+$DB->free($_Module_Polls_DB_Query_SELECT_POLLS);
+?>
