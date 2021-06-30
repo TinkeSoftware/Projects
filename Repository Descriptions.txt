@@ -23,8 +23,8 @@
       `\<> |  | <>/'         |'|
         `-.|  |.-`           \ /
            '--'               ^					    TINKE SOFTWARE
-				Free and Open Source Software // Associated Software Organization: Sowilo Software
-					- 100% Free, Original, Clean and Quality Software Projects -
+                                            Free and Open Source Software
+                            - 100% Free, Original, Clean and Quality Software Projects -
 
 Tinke Software, named from the Frisian word meaning: 'To Think'. We aim to write secure and useful software. Projects and versions follow authentic Frisian words for Elements.
 
@@ -115,3 +115,7 @@ Detailed Video Tutorials For Cerberus Content Management System.
 CerberusCMS_InstallationToolKit
 
 Post Installation ToolKit For Cerberus Content Management System.
+
+Runic Messenger
+
+Runic Messenger is an Open Source C++ Messenger Application that is named after the Runic Languages. This is a compilable C++ Application along with a Post-HyperText-PreProcessor Web Application. This messenger Can Send and Receive Signed and Encrypted Messages From P2P. The Users / Group Can Select From Each Different and or Combination of Encryption / Cryptographic Algorithms. AES, OpenPGP, Off-The-Record As Well As Custom and Customized Cryptographic Algorithms.
