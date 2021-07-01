@@ -23,8 +23,11 @@
       `\<> |  | <>/'         |'|
         `-.|  |.-`           \ /
            '--'               ^					    TINKE SOFTWARE
-				Free and Open Source Software // Associated Software Organization: Sowilo Software
-					- 100% Free, Original, Clean and Quality Software Projects -
+                                            Free and Open Source Software
+                            - 100% Free, Original, Clean and Quality Software Projects -
+
+ // Associated Commercial Software Organization     Sowilo Software     GitHub @ SowiloSoftware
+ // Associated Commercial Technology Organization  Sowilo Electronics   GitHub @ SowiloElectronics
 
    __   _                          ____  ____        __ __            __                __
   / /  (_)__  ___ ___ ____ ____   / __ \/ __/ ____  / // /__ ________/ /__ ___  ___ ___/ /
